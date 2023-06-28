@@ -55,11 +55,11 @@ export default defineType({
       title: 'Category',
       validation: (Rule) => Rule.required(),
     },
-    // {
-    //   name: 'dishes',
-    //   type: 'array',
-    //   of: [{type: 'reference', to: [{type: 'dish'}]}],
-    //   title: 'Dishes',
-    // },
+    {
+      name: 'dishes',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'dish'}]}],
+      title: 'Dishes',
+    },
   ],
 })

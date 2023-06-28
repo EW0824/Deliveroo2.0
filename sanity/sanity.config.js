@@ -5,7 +5,7 @@ import {schemaTypes} from './schemas'
 
 export default defineConfig({
   name: 'default',
-  title: 'tomato-hedgehog',
+  title: 'deliveroo2.0',
 
   projectId: '77m7h1z6',
   dataset: 'production',
