@@ -26,9 +26,7 @@ const FeaturedRow = ({id, title, description}) => {
     ).then(data=> {
       setRestaurants(data?.restaurants);
     });
-  }, []);
-
-  console.log(restaurants);
+  }, [id]);
 
 
 
