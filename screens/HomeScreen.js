@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, ScrollView, Image, TextInput } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import React, { useLayoutEffect, useState, useEffect } from 'react'
 import { useNavigation } from "@react-navigation/native";
 import {
     UserIcon,
@@ -10,23 +10,43 @@ import {
 
 import Categories from '../components/Categories';
 import FeaturedRow from "../components/FeaturedRow";
+import sanityClient from '../sanity';
 
 
 const HomeScreen = () => {
 
     const navigation = useNavigation();
+    const [featuredCategories, setFeaturedCategories] = useState([])
 
-    // getting rid of header
+    // getting rid of header -> loaded once when the UI loads
     useLayoutEffect(() => {
         navigation.setOptions({
             headerShown: false,
         });
     }, []);
 
+    // Run on the initial component load and not again 
+    useEffect(() => {
+        sanityClient.fetch(
+            `
+                *[_type == "featured"] {
+                    ...,
+                    restaurants[] -> {
+                    ...,
+                    dishes[] ->
+                    }
+                }
+            `
+        ).then(data => {
+            setFeaturedCategories(data);
+        });
+    }, []);
 
-  return (
-    <SafeAreaView className="bg-white pt-5">
-      {/* <Text className='text-red-500'>HomeScreen</Text> */}
+    // console.log(featuredCategories);
+
+    return (
+        <SafeAreaView className="bg-white pt-5">
+        {/* <Text className='text-red-500'>HomeScreen</Text> */}
 
         {/* Header */}
         <View className="flex-row pb-3 items-center space-x-2 px-4">
