@@ -1,16 +1,17 @@
-import { View, Text, ScrollView } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, Text, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
 import { ArrowRightIcon } from "react-native-heroicons/outline";
-import RestaurantCard from './RestaurantCard';
-import sanityClient from '../sanity';
-import { IdentificationIcon } from 'react-native-heroicons/solid';
+import RestaurantCard from "./RestaurantCard";
+import sanityClient from "../sanity";
+import { IdentificationIcon } from "react-native-heroicons/solid";
 
-const FeaturedRow = ({id, title, description}) => {
-
+const FeaturedRow = ({ id, title, description }) => {
   const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
-    sanityClient.fetch(`
+    sanityClient
+      .fetch(
+        `
     *[_type == "featured" && _id == $id] {
       ...,
       restaurants[] -> {
@@ -20,21 +21,20 @@ const FeaturedRow = ({id, title, description}) => {
         }
       },
     }[0]
-    `, 
-    { id }
-    // passing in the id from FeaturedRow {} param
-    ).then(data=> {
-      setRestaurants(data?.restaurants);
-    });
+    `,
+        { id }
+        // passing in the id from FeaturedRow {} param
+      )
+      .then((data) => {
+        setRestaurants(data?.restaurants);
+      });
   }, [id]);
-
-
 
   return (
     <View>
       <View className="mt-4 flex-row items-center justify-between px-4">
         <Text className="font-bold text-lg">{title}</Text>
-        <ArrowRightIcon color="#00CCBB"/>
+        <ArrowRightIcon color="#00CCBB" />
       </View>
 
       <Text className="text-xs text-gray-500 px-4">{description}</Text>
@@ -45,10 +45,10 @@ const FeaturedRow = ({id, title, description}) => {
           paddingHorizontal: 15,
         }}
         showHorizontalIndicator={false}
-        className="pt-4">
-
-      {restaurants?.map(restaurant => (
-        <RestaurantCard 
+        className="pt-4"
+      >
+        {restaurants?.map((restaurant) => (
+          <RestaurantCard
             key={restaurant._id}
             id={restaurant._id}
             imgUrl={restaurant.image}
@@ -60,12 +60,11 @@ const FeaturedRow = ({id, title, description}) => {
             dishes={restaurant.dishes}
             long={restaurant.long}
             lat={restaurant.lat}
-        />
-      ))}
-
+          />
+        ))}
       </ScrollView>
     </View>
-  )
-}
+  );
+};
 
-export default FeaturedRow
+export default FeaturedRow;
