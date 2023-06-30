@@ -15,7 +15,7 @@ export default defineType({
       name: 'short_description',
       type: 'string',
       title: 'Short description',
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.max(200),
     },
     {
       name: 'price',
@@ -28,5 +28,4 @@ export default defineType({
       title: 'Image of the Dish',
     },
   ],
-
 })
