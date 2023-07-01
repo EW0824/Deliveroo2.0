@@ -71,7 +71,7 @@ const RestaurantScreen = () => {
             </View>
           </View>
 
-          <Text className="text-gray=500 mt-2 pb-4">{short_description}</Text>
+          <Text className="text-gray-500 mt-2 pb-4">{short_description}</Text>
         </View>
 
         <TouchableOpacity className="flex-row items-center spase-x-2 p-4 border-y border-gray-300">
